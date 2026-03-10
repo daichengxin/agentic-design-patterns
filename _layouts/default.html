@@ -605,11 +605,36 @@
     </script>
   {% endif %}
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+  {% assign md_filename = page.path | split: '/' | last | split: '.' | first %}
   <script type="module">
     import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
     createChat({
-      webhookUrl: 'https://n8n.xindoo.xyz/webhook/891dc8de-d517-4a72-a5fb-b7d432f869c9/chat'
+      webhookUrl: 'https://n8n.xindoo.xyz/webhook/891dc8de-d517-4a72-a5fb-b7d432f869c9/chat',
+      target: '#n8n-chat',
+      mode: 'window',
+      chatInputKey: 'chatInput',
+      chatSessionKey: 'sessionId',
+      loadPreviousSession: true,
+      metadata: {
+        title: '{{ md_filename }}'
+      },
+      showWelcomeScreen: false,
+      defaultLanguage: 'cn',
+      initialMessages: [
+        '你可以向我提问任何关于本书的问题',
+        '你也可以让我帮忙解释本章节'
+      ],
+      i18n: {
+        cn: {
+          title: 'ADP阅读助手',
+          subtitle: "你可以询问我任何关于本书的问题！",
+          footer: '',
+          getStarted: '新对话',
+          inputPlaceholder: '输入你的问题...',
+        },
+      },
+      enableStreaming: true
     });
   </script>
 </body>
